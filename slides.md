@@ -30,6 +30,11 @@ mdc: true
 </div>
 
 ---
+
+# 関数型プログラミングとは
+
+
+---
 layout: statement
 ---
 
@@ -44,19 +49,24 @@ layout: statement
 
 ---
 
+<style>
+  span {
+    font-size: 20pt;
+  }
+</style>
+
 # イミュータブル
 
 これに違和感を持っていませんでしたか？
 
-## プログラム
+## プログラム ()
 
 <br>
 
 ```java
 {all|2}
 int x = 5;
-x = x * 10;
-// x = 50
+x = x * 10; // x = 50
 ```
 
 <br>
@@ -66,10 +76,9 @@ x = x * 10;
 ## 数学
 
 $$
-\begin{array}{ccl}
-  x & = & 5 \\
-  y & = & x \times 10  \\
-  y & = & 50
+\begin{array}{lllll}
+  x & = & 5           &   &    \\
+  y & = & x \times 10 & = & 50 \\
 \end{array}
 $$
 
