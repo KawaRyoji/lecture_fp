@@ -33,15 +33,29 @@ mdc: true
 
 # 関数型プログラミングとは
 
+<br>
+
+
 
 ---
 layout: statement
 ---
 
+<style>
+  h1 {
+    text-align: left;
+    padding-left: 110px;
+  }
 
+  h2 {
+    text-align: left;
+    padding-left: 110px
+  }
+</style>
+
+# 宣言的プログラミング
 # イミュータブル
 # 純粋関数
-# 高階関数
 
 <br>
 
