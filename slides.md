@@ -81,15 +81,112 @@ layout: statement
 
 # 宣言的プログラミング
 
-## 
+##
 
-Howを
+<span class="text-2xl text-orange font-bold">How</span> ではなく <span class="text-2xl text-blue font-bold">What</span> でプログラミングする考え方，パラダイム
+
+<br>
+
+<div class="grid grid-cols-2 gap-4">
+
+<div>
+
+## 命令的プログラミング
+
+<br>
+
+- 「どのように」行うかに焦点を当てる
+- ステップバイステップの手順を明示的に記述
+- ループ、条件分岐などの制御構造を多用
+- コードが長くなる傾向がある
+- 低レベルの操作を直接制御できる
+
+</div>
+<div>
+
+## 宣言的プログラミング
+
+<br>
+
+- 「何を」行うかに焦点を当てる
+- 目的を高レベルな関数や式で表現
+- map, filter, reduceなどの関数型の特徴を活用
+- コードが簡潔になる傾向がある
+- 抽象化によりバグが減り、読みやすくなる
+
+</div>
+</div>
+
+---
+
+# 宣言的プログラミング　例
+
+
+<style>
+  h2 {
+    text-align: center;
+  }
+</style>
+
+<br>
+
+<div class="grid grid-cols-2 gap-4">
+
+<div>
+
+## 命令的プログラミング
+
+<br>
+
+```javascript{all|7-8|9-10|13-16|all}
+const foods = [
+  {name: "りんご", price: 50, num: 2},
+  {name: "バナナ", price: 80, num: 3},
+  {name: "スイカ", price: 150, num: 1}
+];
+
+// 合計値を変化するものとして定義している
+let sum = 0;
+// 合計を求めるとき本来は不必要なiを定義している
+for (let i = 0; i < foods.length; i++) {
+  const food = foods[i];
+
+  if (food.price <= 100) { // 百円以下のとき
+    // 合計値に一つの食べ物の合計価格を足す
+    sum += food.price * food.num;
+  }
+}
+```
+
+</div>
+<div>
+
+## 宣言的プログラミング
+
+<br>
+
+```javascript{all|7-8|9|10|11}
+const foods = [
+  {name: "りんご", price: 50, num: 2},
+  {name: "バナナ", price: 80, num: 3},
+  {name: "スイカ", price: 150, num: 1}
+]
+
+// 合計値を変化しないものとして定義している
+const sum = foods
+  .filter(food => food.price <= 100) // 百円以下のものだけ取り出す
+  .map(food => food.price * food.num) // 一つの食べ物の合計価格を計算
+  .reduce((x, y) => x + y); // それらの合計を求める
+```
+</div>
+</div>
+
 
 ---
 
 # イミュータブル
 
-<style>
+<style local>
   span {
     font-size: 18pt;
   }
@@ -131,6 +228,12 @@ $$
 - 関数の主作用以外の作用（**副作用**）を持たない関数
 - 引数が同じなら同じ結果を返す（**参照透過性**）
 
+<style>
+  h2 {
+    text-align: center;
+  }
+</style>
+
 <br>
 
 <div class="grid grid-cols-2 gap-4">
@@ -156,7 +259,7 @@ console.log(result); // [2, 1]
 </div>
 <div>
 
-## 副作用を持たない関数
+## 純粋関数
 
 ```typescript
 const lst = [2];
@@ -169,9 +272,15 @@ const result = add1(lst);
 
 console.log(lst); // [2]
 console.log(result); // [2, 1]
-// 外の世界に影響を及ぼさない（純粋関数）
+// 外の世界に影響を及ぼさない（副作用がない）
+// 引数が同じなら常に同じ値を返す（参照透過性）
 ```
 
 </div>
 </div>
+
 ---
+layout: statement
+---
+
+# これらを踏まえて練習問題へ
