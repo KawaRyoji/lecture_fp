@@ -81,7 +81,9 @@ layout: statement
 
 # 宣言的プログラミング
 
+## 
 
+Howを
 
 ---
 
@@ -171,7 +173,5 @@ console.log(result); // [2, 1]
 ```
 
 </div>
-
-
 </div>
 ---
