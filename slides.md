@@ -4,7 +4,7 @@ theme: seriph
 # random image from a curated Unsplash collection by Anthony
 background: https://cover.sli.dev
 # some information about your slides, markdown enabled
-title: Welcome to Slidev
+title: Introduction of Function Programming
 # apply any unocss classes to the current slide
 class: text-center
 # https://sli.dev/custom/highlighters.html
@@ -51,7 +51,7 @@ mdc: true
 - Scala(2001年) - JavaのVM上で動く言語
 
 
-その他にも様々な言語やフレームワークが関数型プログラミング影響を受けている
+その他にも様々な言語やフレームワークが関数型プログラミング影響を受けている(Reactとかもそうだよ)
 
 ---
 
@@ -84,6 +84,15 @@ lInt -->|"sum()"| int
 
 ```
 
+---
+
+# 余談ですが...
+
+## 型から関数を検索するサイトがある
+
+[Hoogle](https://hoogle.haskell.org/) : Haskellの関数を型から調べられる
+
+型がその関数の重要な部分だとわかりますね！
 
 ---
 layout: statement
@@ -241,6 +250,7 @@ const sum = foods
 - テストがしづらくなる
 - キャッシュが使いづらくなる
 - 並行処理が難しくなる
+- map, filter, reduceなど，関数型プログラミングの便利関数と相性が悪い
 
 などなど...
 
@@ -250,21 +260,40 @@ const sum = foods
 
 # イミュータブル　例
 
+<style>
+  h2 {
+    text-align: center;
+  }
+</style>
+
 <div class="grid grid-cols-2 gap-4">
 <div>
 
 ## ミュータブル
 
-```javascript
-const person = {name: "Bob", age: 20}
+```java{all|2-3|10-17|18-21|all}
+public class Food {
+  private String name;
+  private int price;
 
-// 年齢を一つ上げる
-function birthDay(person) {
-  person.age += 1;
+  public Food(String name, int price) {
+    this.name = name;
+    this.price = price;
+  }
+
+  public void setName(String name) {
+    this.name = name; // まさに内部状態を変更している
+  }
+
+  public void setPrice(int price) {
+    this.price = price; // まさに内部状態を変更している
+  }
+
+  public void discount(double rate) {
+    // 戻り値がない/内部状態を変更
+    setPrice((int)(this.price * (1 - rate)));
+  }
 }
-
-
-assert()
 ```
 
 </div>
@@ -272,10 +301,26 @@ assert()
 
 ## イミュータブル
 
-```javascript
+```java{all|2-3|10-14|all}
+public class Food {
+  public final String name; // final 修飾子は再代入を禁止する
+  public final int price; // フィールドはpublicへ
 
+  public Food(String name, int price) {
+    this.name = name;
+    this.price = price;
+  }
+
+  public Food discount(double rate) {
+    // 新たなインスタンスを作って返す
+    // つまり this != return value
+    return new Food(this.name, (int)(this.price * (1 - rate)));
+  }
+}
+
+// こちらだと下のようにメソッドチェーンでかける
+new Food("りんご", 100).discount(0.2).price // 80
 ```
-
 
 </div>
 </div>
@@ -303,16 +348,18 @@ assert()
 ```javascript
 const lst = [2];
 
-function add1(lst) {
-  lst.push(1);
+function add(lst) {
+  lst.push(Math.floor(Math.random() * 3));
   return lst;
 }
 
-const result = add1(lst);
+const result = add(lst);
 
 console.log(lst); // [2, 1]
 console.log(result); // [2, 1]
 // 外の世界のlstに影響を及ぼしている（副作用）
+// また，同じ引数でも同じ結果が返ってくるとは限らない
+console.log(add([2])) // [2, 0]
 ```
 
 </div>
@@ -323,11 +370,11 @@ console.log(result); // [2, 1]
 ```typescript
 const lst = [2];
 
-function add1(lst) {
+function add(lst) { // 純粋関数
   return lst.concat([1]);
 }
 
-const result = add1(lst);
+const result = add(lst);
 
 console.log(lst); // [2]
 console.log(result); // [2, 1]
