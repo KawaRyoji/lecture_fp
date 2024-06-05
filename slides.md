@@ -53,6 +53,37 @@ mdc: true
 
 その他にも様々な言語やフレームワークが関数型プログラミング影響を受けている
 
+---
+
+# 関数型プログラミングのイメージ
+
+## 型と関数の連続
+
+例：
+
+"20 30 10 20 30"のような空白区切りの数値をすべて足した結果を出力しよう
+
+<br>
+
+
+```mermaid {theme:natural}
+graph LR
+
+str(("String<br>'10 20 30'"))
+lStr(("String[]<br>['10', '20', '30']"))
+int(("Integer<br>60"))
+lInt(("Integer[]<br>[10, 20, 30]"))
+opt(("Optional.Integer[]"))
+none(("None"))
+
+str -->|"split(' ')"| lStr
+lStr -->|"parseInt()"| opt
+opt -->|number| lInt
+opt -->|else| none
+lInt -->|"sum()"| int
+
+```
+
 
 ---
 layout: statement
@@ -80,6 +111,12 @@ layout: statement
 ---
 
 # 宣言的プログラミング
+
+<style>
+  h2 {
+    text-align: center;
+  }
+</style>
 
 ##
 
@@ -184,41 +221,63 @@ const sum = foods
 
 ---
 
-# イミュータブル
+# イミュータブル (Immutable)
 
-<style local>
-  span {
-    font-size: 18pt;
-  }
-</style>
+## 一度定義したら絶対に変化しない値
 
-##
-
-こんな違和感を持っていませんでしたか？
-
-## プログラム
-
-<br>
-
-```java
-{all|2}
-int x = 5;
-x = x * 10; // x = 50
-```
-
-<br>
+対義語はミュータブル(mutable)
 
 <div v-click>
 
-## 数学
+## え...変化してもええじゃん？
 
-$$
-\begin{array}{lllll}
-  x & = & 5           &   &    \\
-  y & = & x \times 10 & = & 50 \\
-\end{array}
-$$
+</div>
+<div v-click>
 
+いやいや、変化するといろんなことが難しくなる
+
+- コードを追うのが難しくなる
+- 意図しない挙動をしやすくなる
+- テストがしづらくなる
+- キャッシュが使いづらくなる
+- 並行処理が難しくなる
+
+などなど...
+
+</div>
+
+---
+
+# イミュータブル　例
+
+<div class="grid grid-cols-2 gap-4">
+<div>
+
+## ミュータブル
+
+```javascript
+const person = {name: "Bob", age: 20}
+
+// 年齢を一つ上げる
+function birthDay(person) {
+  person.age += 1;
+}
+
+
+assert()
+```
+
+</div>
+<div>
+
+## イミュータブル
+
+```javascript
+
+```
+
+
+</div>
 </div>
 
 ---
