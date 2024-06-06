@@ -3,7 +3,7 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "build": "slidev build",
+    "build": "slidev build --base /lecture_fp",
     "dev": "slidev",
     "export": "slidev export",
     "rm": "rm -rf docs",
